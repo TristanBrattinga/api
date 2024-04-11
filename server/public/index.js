@@ -12,8 +12,7 @@ const sendMessage = (e) => {
     e.preventDefault()
     if (nameInput.value && msgInput.value && chatRoom.value) {
         socket.emit('message', {
-            name: nameInput.value,
-            text: msgInput.value,
+            name: nameInput.value, text: msgInput.value,
         })
         msgInput.value = ''
     }
@@ -24,8 +23,7 @@ const enterRoom = (e) => {
     e.preventDefault()
     if (nameInput.value && chatRoom.value) {
         socket.emit('enterRoom', {
-            name: nameInput.value,
-            room: chatRoom.value,
+            name: nameInput.value, room: chatRoom.value,
         })
     }
 }
@@ -40,10 +38,26 @@ msgInput.addEventListener('keypress', () => {
 
 // Listen for messages
 socket.on('message', (data) => {
-    activity.textContent = ''
-    const li             = document.createElement('li')
-    li.textContent       = data
-    document.querySelector('ul').appendChild(li)
+    activity.textContent       = ''
+    const { name, text, time } = data
+    const li                   = document.createElement('li')
+    li.className               = 'post'
+    if (name === nameInput.value) {
+        li.className = 'post post--left'
+    }
+    if (name !== nameInput.value && name !== 'admin') {
+        li.className = 'post post--right'
+    }
+    if (name !== 'admin') {
+        li.innerHTML = `<div class="post__header ${name === nameInput.value ?
+            'post__header--user' :
+            'post__header--reply'}"><span class="post__header--name">${name}</span><span class="post__header--time">${time}</span></div><div class="post__text">${text}</div>`
+    } else {
+        li.innerHTML = `<div class="post__text">${text}</div>`
+    }
+    document.querySelector('.chat-display').appendChild(li)
+
+    chatDisplay.scrollTop = chatDisplay.scrollHeight
 })
 
 let activityTimer
@@ -57,3 +71,37 @@ socket.on('activity', (name) => {
         activity.textContent = ''
     }, 3000)
 })
+
+socket.on('userList', ({ users }) => {
+    showUsers(users)
+})
+
+socket.on('roomList', ({ rooms }) => {
+    showRooms(rooms)
+})
+
+const showUsers = (users) => {
+    usersList.textContent = ''
+    if (users) {
+        usersList.innerHTML = `<em>Users in ${chatRoom.value}:</em>`
+        users.forEach((user, index) => {
+            usersList.textContent += ` ${user.name}`
+            if (users.length > 1 && index !== users.length - 1) {
+                usersList.textContent += ','
+            }
+        })
+    }
+}
+
+const showRooms = (rooms) => {
+    roomList.textContent = ''
+    if (rooms) {
+        roomList.innerHTML = '<em>Active Rooms:</em>'
+        rooms.forEach((room, index) => {
+            usersList.textContent += ` ${room}`
+            if (rooms.length > 1 && index !== rooms.length - 1) {
+                roomList.textContent += ','
+            }
+        })
+    }
+}
