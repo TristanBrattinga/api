@@ -1,6 +1,6 @@
 const socket = io('ws://localhost:3500')
 
-const msgInput    = document.querySelector('#message')
+const msgInput    = document.querySelector('#message-input')
 const nameInput   = document.querySelector('#name')
 const chatRoom    = document.querySelector('#room')
 const activity    = document.querySelector('.activity')
@@ -98,7 +98,7 @@ const showRooms = (rooms) => {
     if (rooms) {
         roomList.innerHTML = '<em>Active Rooms:</em>'
         rooms.forEach((room, index) => {
-            usersList.textContent += ` ${room}`
+            roomList.textContent += ` ${room}`
             if (rooms.length > 1 && index !== rooms.length - 1) {
                 roomList.textContent += ','
             }

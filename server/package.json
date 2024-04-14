@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "packageManager": "yarn@4.1.1",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "keywords": [],
   "author": "TristanBrattinga",
