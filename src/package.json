@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "packageManager": "yarn@4.1.1",
   "main": "server.js",
-  "type": "module",
   "keywords": [],
   "author": "TristanBrattinga",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon .",
-    "start": "node ."
+    "dev": "nodemon server.js ",
+    "start": "node server.js"
   },
   "engines": {
     "node": "<=20.x.x"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "mongoose": "^8.3.1",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
