@@ -19,7 +19,7 @@ app.set('layout', 'layouts/main')
 app.use(express.static('public'))
 
 // Middleware
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(cors())
 app.use(expressLayouts)
@@ -47,44 +47,53 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
     const { username, email, password } = req.body
     const hashedPassword = await bcrypt.hash(password, 10)
-    const user = new User({ username, email, hashedPassword })
-    await user.save()
-    res.redirect('/login')
+    const user = new User({ username, email, password: hashedPassword })
+    console.log(user)
+    try {
+        await user.save()
+        console.log('User registered successfully:', user)
+        res.redirect('/login')
+    } catch (err) {
+        console.error('Error registering user:', err)
+        res.status(500).send('Error registering user')
+    }
 })
 
 app.get('/login', (req, res) => {
     res.render('login')
 })
 
-app.post('login', async (req, res) => {
-    const {email, password} = req.body
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body
     const user = await User.findOne({ email })
     if (!user) {
         return res.render('login', {error: 'User not found'})
+    } else if (user) {
+        console.log(user)
     }
     if (!await bcrypt.compare(password, user.password)) {
         return res.render('login', {error: 'Passwords do not match'})
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET)
-    res.cookie('token', token, { httpOnly: true })
+    // const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET)
+    // res.cookie('token', token, { httpOnly: true })
     res.redirect('/profile')
 })
 
-const authenticateJWT = (req, res, next) => {
-    const token = req.cookies.token
-    if (!token) {
-        return res.redirect('/login')
-    }
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) {
-            return res.redirect('/login')
-        }
-        req.user = user
-        next()
-    })
-}
+// const authenticateJWT = (req, res, next) => {
+//     const token = req.cookies.token
+//     if (!token) {
+//         return res.redirect('/login')
+//     }
+//     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+//         if (err) {
+//             return res.redirect('/login')
+//         }
+//         req.user = user
+//         next()
+//     })
+// }
 
-app.get('/profile', authenticateJWT, (req, res) => {
+app.get('/profile', (req, res) => {
     res.render('profile')
 })
 
@@ -99,5 +108,6 @@ db.once('open', () => {
     console.log('Connected to MongoDB')
     app.listen(port, () => {
         console.log(`Server running on port: ${port}`)
+        // console.log("\x1b]8;;http://localhost:3000\x1b\\Click here to open localhost:3000 in your browser\x1b]8;;\x1b\\");
     })
 })
