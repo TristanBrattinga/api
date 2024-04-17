@@ -1,3 +1,11 @@
 <main>
-    <p>This is the profile page</p>
+    <h1>This is the profile page for <%= user.username%></h1>
+    <form action="/logout" method="POST">
+        <p>Do you want to log out? Click the button below</p>
+        <button type="submit">Log out</button>
+    </form>
+    <form>
+        <p>Do you want to delete your account?</p>
+        <button id="deleteAccount">Delete account</button>
+    </form>
 </main>

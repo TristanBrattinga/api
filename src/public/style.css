@@ -33,6 +33,10 @@ a {
     color: var(--text-color);
 }
 
+h1 {
+    margin-bottom: 2rem;
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -65,6 +69,11 @@ form {
         border-radius: 10px;
         cursor: pointer;
         margin-top: 1rem;
+        font-weight: 600;
+        font-size: 1.2rem;
     }
 }
 
+#deleteAccount {
+    background-color: red;
+}
