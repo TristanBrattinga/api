@@ -4,12 +4,20 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import expressLayouts from 'express-ejs-layouts'
 import cookieParser from 'cookie-parser'
+import path from 'path'
 const app = express()
 const port = process.env.PORT || 3000
 const db = mongoose.connection
 
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 // Set the view engine to EJS
 app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'src', 'views'))
 
 // Define the layouts folder
 app.set('layout', 'layouts/main')
