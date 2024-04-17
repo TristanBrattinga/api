@@ -1,12 +1,12 @@
-require('dotenv').config()
-const express = require('express')
+import 'dotenv/config'
+import express from 'express'
+import mongoose from 'mongoose'
+import cors from 'cors'
+import expressLayouts from 'express-ejs-layouts'
+import cookieParser from 'cookie-parser'
 const app = express()
-const mongoose = require('mongoose')
-const cors = require('cors')
-const db = mongoose.connection
-const expressLayouts = require('express-ejs-layouts')
-const cookieParser = require('cookie-parser')
 const port = process.env.PORT || 3000
+const db = mongoose.connection
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs')
@@ -15,11 +15,12 @@ app.set('view engine', 'ejs')
 app.set('layout', 'layouts/main')
 
 // Import routers
-const indexRouter = require('./routes/index')
-const registerRouter = require('./routes/register')
-const loginRouter = require('./routes/login')
-const profileRouter = require('./routes/profile')
-const logoutRouter = require('./routes/logout')
+import indexRouter from './src/routes/index.js'
+import registerRouter from './src/routes/register.js'
+import loginRouter from './src/routes/login.js'
+import profileRouter from './src/routes/profile.js'
+import logoutRouter from './src/routes/logout.js'
+import deleteRouter from './src/routes/delete.js'
 
 // Define static file folder
 app.use(express.static('public'))
@@ -48,6 +49,7 @@ app.use('/register', registerRouter)
 app.use('/login', loginRouter)
 app.use('/profile', profileRouter)
 app.use('/logout', logoutRouter)
+app.use('/delete', deleteRouter)
 
 // Error route handling for non-existing pages
 app.use((req, res) => {

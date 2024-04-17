@@ -1,10 +1,8 @@
 import express from 'express'
 const router = express.Router()
+import deleteController from '../controllers/deleteController.js'
 import authenticate from '../middleware/authenticate.js'
 
-router.get('/', authenticate, (req, res) => {
-    const user = req.user
-    res.render('profile', { user })
-})
+router.post('/', authenticate, deleteController)
 
 export default router

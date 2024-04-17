@@ -1,6 +1,6 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const registerController = require('../controllers/registerController')
+import registerController from '../controllers/registerController.js'
 
 router.get('/', (req, res) => {
     res.render('register')
@@ -8,4 +8,4 @@ router.get('/', (req, res) => {
 
 router.post('/', registerController)
 
-module.exports = router
+export default router
