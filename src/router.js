@@ -32,5 +32,8 @@ router
     .get('/rooms', authenticate, (req, res) => {
         res.render('rooms')
     })
+    .get('/rooms/:roomId', authenticate, (req, res) => {
+        res.render('room', { layout: 'layouts/chatLayout' })
+    })
 
 export default router

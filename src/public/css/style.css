@@ -1,16 +1,10 @@
+@import "./variables.css";
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Lato', Helvetica, sans-serif;
-}
-
-:root {
-    --bg-color: #1E1E1E;
-    --text-color: #fff;
-    --accent-color: #4E7AF2;
-    --highlight-color: #2E3C4F;
-    --input-color: #333333;
 }
 
 body {
@@ -25,12 +19,21 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-top: 20rem;
+    margin-top: 10rem;
+}
+
+header {
+    display: flex;
+    gap: 2rem;
 }
 
 a {
     text-decoration: underline;
     color: var(--text-color);
+}
+
+li {
+    list-style: none;
 }
 
 h1 {
@@ -46,7 +49,7 @@ form {
     padding: 1.5rem 1rem;
     border-radius: 20px;
     gap: .75rem;
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
 
     label {
         display: flex;
@@ -58,6 +61,7 @@ form {
             height: 32px;
             border-radius: 10px;
             border: none;
+            padding-left: .5rem;
         }
     }
 
@@ -71,6 +75,25 @@ form {
         margin-top: 1rem;
         font-weight: 600;
         font-size: 1.2rem;
+    }
+}
+
+#roomList {
+    margin: 2rem 0;
+
+    button {
+        appearance: none;
+        border: none;
+        padding: 1rem 2rem;
+        margin: 1rem;
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--highlight-color);
+        }
     }
 }
 
