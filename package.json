@@ -2,15 +2,15 @@
   "name": "server",
   "version": "1.0.0",
   "packageManager": "yarn@4.1.1",
-  "main": "server.js",
+  "main": "src/server.js",
   "type": "module",
   "keywords": [],
   "author": "TristanBrattinga",
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "npx concurrently \"vite\" \"nodemon src/server.js\"",
+    "start": "node src/server.js"
   },
   "engines": {
     "node": "<=20.x.x"
@@ -25,9 +25,12 @@
     "express-ejs-layouts": "^2.5.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.2",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "vite": "^5.2.9",
+    "vite-plugin-eslint": "^1.8.1"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",

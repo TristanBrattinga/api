@@ -17,7 +17,7 @@ const __dirname = dirname(__filename)
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs')
-// app.set('views', 'views')
+app.set('views', path.join(__dirname, 'views'))
 
 // Define the layouts folder
 app.set('layout', 'layouts/main')
@@ -31,7 +31,7 @@ import logoutRouter from './routes/logout.js'
 import deleteRouter from './routes/delete.js'
 
 // Define static file folder
-app.use(express.static('public'))
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Middleware
 app.use(express.urlencoded({ extended: false }))

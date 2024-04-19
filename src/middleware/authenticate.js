@@ -40,7 +40,7 @@ const authenticate = async (req, res, next) => {
                                     decodedRefresh.userId
                                 )
                                 if (!user) {
-                                    throw new Error('User not found')
+                                    res.redirect('/login')
                                 }
                                 // Attach the user object to the request
                                 req.user = user
