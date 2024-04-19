@@ -17,18 +17,18 @@ const __dirname = dirname(__filename)
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname, 'src', 'views'))
+// app.set('views', 'views')
 
 // Define the layouts folder
 app.set('layout', 'layouts/main')
 
 // Import routers
-import indexRouter from './src/routes/index.js'
-import registerRouter from './src/routes/register.js'
-import loginRouter from './src/routes/login.js'
-import profileRouter from './src/routes/profile.js'
-import logoutRouter from './src/routes/logout.js'
-import deleteRouter from './src/routes/delete.js'
+import indexRouter from './routes/index.js'
+import registerRouter from './routes/register.js'
+import loginRouter from './routes/login.js'
+import profileRouter from './routes/profile.js'
+import logoutRouter from './routes/logout.js'
+import deleteRouter from './routes/delete.js'
 
 // Define static file folder
 app.use(express.static('public'))
