@@ -18,3 +18,11 @@ socket.on('predefinedRooms', (predefinedRooms) => {
         roomList.appendChild(li)
     })
 })
+
+const foldSidebarButton = document.getElementById('foldSidebar')
+const sidebar = document.querySelector('.sidebar')
+
+foldSidebarButton.addEventListener('click', () => {
+    foldSidebarButton.classList.toggle('fold')
+    sidebar.classList.toggle('fold')
+})
