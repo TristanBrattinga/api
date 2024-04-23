@@ -3,6 +3,8 @@ import authenticate from './middleware/authenticate.js'
 import loginController from './controllers/loginController.js'
 import registerController from './controllers/registerController.js'
 import deleteController from './controllers/deleteController.js'
+import getAllRoomsController from './controllers/getAllRoomsController.js'
+import getUsersInRoomController from './controllers/getUsersInRoomController.js'
 
 const router = express.Router()
 
@@ -24,16 +26,12 @@ router
         res.clearCookie('refreshToken')
         res.redirect('/login')
     })
-    .get('/profile', authenticate, (req, res) => {
+    .get('/profile/:userId', authenticate, (req, res) => {
         const user = req.user
         res.render('profile', { user })
     })
     .post('/delete', authenticate, deleteController)
-    .get('/rooms', authenticate, (req, res) => {
-        res.render('rooms')
-    })
-    .get('/rooms/:roomId', authenticate, (req, res) => {
-        res.render('room', { layout: 'layouts/chatLayout' })
-    })
+    .get('/rooms', authenticate, getAllRoomsController)
+    .get('/rooms/:roomId', authenticate, getUsersInRoomController)
 
 export default router

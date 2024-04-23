@@ -1,28 +1,29 @@
 // eslint-disable-next-line no-undef
 const socket = io('ws://localhost:3000')
 
-const roomList = document.getElementById('roomList')
+const messageInput = document.querySelector('#message-input')
 
-socket.on('predefinedRooms', (predefinedRooms) => {
-    roomList.textContent = ''
+const joinRoom = (roomId) => {
+    if (roomId) {
+        socket.emit('joinRoom', roomId)
+        window.location.href = `/rooms/${roomId}`
+    }
+}
 
-    predefinedRooms.forEach((room) => {
-        const li = document.createElement('li')
-        const button = document.createElement('button')
-        button.textContent = room
-        button.value = room
-        button.addEventListener('click', () => {
-            socket.emit('enterRoom', room)
-        })
-        li.appendChild(button)
-        roomList.appendChild(li)
+const sendMessage = (e) => {
+    e.preventDefault()
+    socket.emit('message', {
+        name: '',
+        text: messageInput.value
     })
-})
 
-const foldSidebarButton = document.getElementById('foldSidebar')
-const sidebar = document.querySelector('.sidebar')
+    messageInput.focus()
+}
 
-foldSidebarButton.addEventListener('click', () => {
-    foldSidebarButton.classList.toggle('fold')
-    sidebar.classList.toggle('fold')
+document.querySelector('.chatUI').addEventListener('submit', sendMessage)
+
+document.querySelectorAll('.room-link').forEach((link) => {
+    link.addEventListener('click', () => {
+        joinRoom(link.id)
+    })
 })

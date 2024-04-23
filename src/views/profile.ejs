@@ -1,5 +1,11 @@
 <main>
-    <h1>This is the profile page for <%= user.username%></h1>
+    <div>
+        <a href="/rooms"><img src="/images/caretleft.svg" alt="">Back</a>
+    </div>
+    <h1>This is the profile page for <%= user.username %></h1>
+    <img class="avatar" src="/images/gerard.png" alt="Avatar Image of User" />
+    <p>ID: <%= user.id%></p>
+
     <form action="/logout" method="POST">
         <p>Do you want to log out? Click the button below</p>
         <button type="submit">Log out</button>

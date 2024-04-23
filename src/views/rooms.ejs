@@ -1,6 +1,12 @@
 <main>
     <h2>Choose a room here</h2>
-    <ul id="roomList"></ul>
+    <ul id="roomList">
+        <% rooms.map((room) => { %>
+            <li>
+                <a id="<%= room.name %>" class="room-link" href="#"><%= room.name %></a>
+            </li>
+        <% }) %>
+    </ul>
     <h3>Or create your own</h3>
     <form>
         <label>

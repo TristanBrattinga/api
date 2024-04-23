@@ -33,6 +33,7 @@ header {
 main {
     height: 100dvh;
     display: flex;
+    position: relative;
 
     section {
         &:nth-of-type(1) {
@@ -41,7 +42,7 @@ main {
 
         &:nth-of-type(2) {
             width: 100%;
-
+            height: 100dvh;
         }
     }
 }
@@ -49,15 +50,27 @@ main {
 input {
     width: 100%;
     padding-left: 10px;
-    height: 42px;
+    height: 32px;
     border: none;
     border-radius: 999px;
+    background-color: #2b2b2b;
+    color: var(--text-color);
+    outline: none;
+    caret-color: var(--accent-color);
+}
+
+.chatHeader {
+    background-color: var(--bg-color);
+    padding: .5rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
 }
 
 .chatUI {
     display: flex;
-    background-color: white;
-    border: 1px solid grey;
+    gap: .4rem;
+    padding: .5rem;
 }
 
 .divider {
@@ -77,6 +90,7 @@ input {
     justify-content: space-between;
     transition: all 0.3s ease-in-out;
     position: relative;
+    min-width: 250px;
 
     &.fold {
         width: 80px;
@@ -127,7 +141,7 @@ input {
 
     > div {
 
-        p {
+        > p {
             padding-left: .5rem;
         }
 
@@ -172,27 +186,32 @@ input {
 .sendButton {
     border: none;
     background-color: var(--accent-color);
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
     border-radius: 999px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
+    transition: all 0.1s ease;
+
+    &:hover {
+        opacity: 0.8;
+    }
 
     &:nth-of-type(2) img {
         transform: rotate(90deg);
     }
 }
 
-.chat-display {
-    background-color: #fff;
+.chatDisplay {
+    background-color: #2b2b2b;
     list-style-type: none;
     width: 100%;
     display: flex;
     flex-flow: column;
     justify-content: left;
-    height: calc(100% - 44px);
+    height: calc(100% - 96px);
 }
 
 .post {
@@ -257,4 +276,64 @@ input {
 
 .activity {
     font-style: italic;
+}
+
+.dialog {
+    color: var(--text-color);
+    background-color: #2b2b2b;
+    width: 100%;
+    max-width: 450px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+
+    &::backdrop {
+        background-color: var(--bg-color);
+        opacity: .75;
+    }
+
+    form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        gap: 2rem;
+
+        p {
+            font-size: 1.4rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        div {
+            display: flex;
+            gap: 1rem;
+
+            a, button {
+                border: none;
+                width: 12rem;
+                padding: 1rem 0;
+                text-align: center;
+                color: var(--text-color);
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: 600;
+                font-size: 1.2rem;
+            }
+
+            button {
+                appearance: none;
+                background-color: transparent;
+                border: 1px solid white;
+            }
+
+            a {
+                background-color: var(--accent-color);
+            }
+        }
+    }
 }
