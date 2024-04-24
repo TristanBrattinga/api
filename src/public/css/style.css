@@ -24,8 +24,13 @@ main {
 }
 
 header {
-    display: flex;
-    gap: 2rem;
+    padding: 1rem 2rem;
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 a {
@@ -35,10 +40,6 @@ a {
 
 li {
     list-style: none;
-}
-
-h1 {
-    margin-bottom: 1rem;
 }
 
 form {
@@ -104,6 +105,12 @@ form {
 }
 
 .avatar {
+    width: 42px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+}
+
+.avatar-large {
     width: 56px;
     aspect-ratio: 1/1;
     border-radius: 50%;

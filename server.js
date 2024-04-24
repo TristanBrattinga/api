@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import expressLayouts from 'express-ejs-layouts'
 import cookieParser from 'cookie-parser'
-import path from 'path'
+import multer from 'multer'
 import router from './src/router.js'
 import buildMsg from './src/utils/buildMessage.js'
 
@@ -13,14 +13,10 @@ const app = express()
 const port = process.env.PORT || 3000
 const db = mongoose.connection
 const admin = 'Admin'
-
-import { fileURLToPath } from 'url'
-import { dirname } from 'path'
-import Room from './src/models/Room.js'
-import logout from './src/routes/logout.js'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import path from 'node:path'
+const __dirname = import.meta.dirname
+import User from './src/models/User.js'
+import authenticate from './src/middleware/authenticate.js'
 
 // Set the view engine to EJS
 app.set('view engine', 'ejs')
@@ -50,6 +46,38 @@ const connectDB = async () => {
 }
 
 connectDB()
+
+// Set up storage using multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'src/uploads/avatars')
+    },
+    filename: function (req, file, cb) {
+        cb(
+            null,
+            file.fieldname + '-' + Date.now() + path.extname(file.originalname)
+        )
+    }
+})
+
+// Initiate multer upload
+const upload = multer({ storage: storage })
+
+// Handle POST request for avatar upload
+app.post('/upload', authenticate, upload.single('avatar'), async (req, res) => {
+    try {
+        const userId = req.user._id
+
+        const avatarPath = req.file.path
+
+        await User.findByIdAndUpdate(userId, { avatar: avatarPath })
+
+        res.redirect('/profile/:userId')
+    } catch (err) {
+        console.error(err)
+        res.status(500).send('Internal Server Error')
+    }
+})
 
 const expressServer = app.listen(port, () => {
     console.log(`listening on port: ${port}`)

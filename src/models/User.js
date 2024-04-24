@@ -13,6 +13,16 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    avatar: {
+        type: String
+    },
+    room: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Room'
+    },
+    socketId: {
+        type: String
     }
 })
 

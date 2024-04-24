@@ -2,8 +2,12 @@
     <div>
         <a href="/rooms"><img src="/images/caretleft.svg" alt="">Back</a>
     </div>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="avatar" />
+        <button type="submit">Upload</button>
+    </form>
     <h1>This is the profile page for <%= user.username %></h1>
-    <img class="avatar" src="/images/gerard.png" alt="Avatar Image of User" />
+    <img class="avatar-large" src="<%= user.avatar %>" alt="Avatar Image of User" />
     <p>ID: <%= user.id%></p>
 
     <form action="/logout" method="POST">

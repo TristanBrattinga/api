@@ -7,7 +7,7 @@ const authenticate = async (req, res, next) => {
         const refreshToken = req.cookies.refreshToken
 
         if (!accessToken || !refreshToken) {
-            return res.redirect('/login')
+            return res.redirect('/')
         }
 
         // Verify the access token
@@ -23,7 +23,7 @@ const authenticate = async (req, res, next) => {
                         async (refreshTokenErr, decodedRefresh) => {
                             if (refreshTokenErr) {
                                 // Both tokens are invalid, redirect to log in
-                                return res.redirect('/login')
+                                return res.redirect('/')
                             } else {
                                 // Refresh token is valid, issue a new access token
                                 const newAccessToken = jwt.sign(
@@ -40,7 +40,7 @@ const authenticate = async (req, res, next) => {
                                     decodedRefresh.userId
                                 )
                                 if (!user) {
-                                    res.redirect('/login')
+                                    res.redirect('/')
                                 }
                                 // Attach the user object to the request
                                 req.user = user

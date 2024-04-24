@@ -9,9 +9,6 @@ import getUsersInRoomController from './controllers/getUsersInRoomController.js'
 const router = express.Router()
 
 router
-    .get('/login', (req, res) => {
-        res.render('login')
-    })
     .post('/login', loginController)
     .get('/register', (req, res) => {
         res.render('register')
@@ -24,7 +21,7 @@ router
     .post('/logout', (req, res) => {
         res.clearCookie('token')
         res.clearCookie('refreshToken')
-        res.redirect('/login')
+        res.redirect('/')
     })
     .get('/profile/:userId', authenticate, (req, res) => {
         const user = req.user

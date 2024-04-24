@@ -8,7 +8,7 @@ const registerUser = async (req, res) => {
     try {
         await user.save()
         console.log('User registered successfully:', user)
-        res.redirect('/login')
+        res.redirect('/')
     } catch (err) {
         console.error('Error registering user:', err)
         res.status(500).send('Error registering user')
