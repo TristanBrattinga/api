@@ -108,11 +108,11 @@ io.on('connection', (socket) => {
         console.log(`Socket ${socket.id} joined room ${roomId}`)
     })
 
-    socket.on('message', ({ name, text }) => {
-        if (room) {
-            io.to(room).emit('message', buildMsg(name, text))
-        }
-    })
+    // socket.on('message', ({ name, text }) => {
+    //     if (room) {
+    //         io.to(room).emit('message', buildMsg(name, text))
+    //     }
+    // })
 })
 
 // Error route handling for non-existing pages
