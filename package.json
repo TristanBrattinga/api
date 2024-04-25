@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "dev": "npx concurrently \"vite\" \"nodemon server.js\"",
     "build": "vite build",
-    "start": "vite"
+    "start": "node server.js"
   },
   "engines": {
     "node": "<=20.x.x"
